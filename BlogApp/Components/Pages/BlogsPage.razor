@@ -1,7 +1,58 @@
-﻿@page "/blogs"
+﻿@page "/blogs/{Id:int}"
 
-<h3>BlogsPage</h3>
+@inject BlogsClient Client
+@inject CategoriesClient CategoriesClient
+
+<PageTitle>Blogs</PageTitle>
+
+<PageHero PageHeading="@categoryName" />
+
+<ul class="w-100 my-5  list-unstyled">
+    @foreach (BlogModel blog in blogs!)
+    {
+        <li class="card mb-5 w-100 p-0">
+            <div class="row g-0">
+                <div class="col-md-4 p-0">
+                    <img src="@blog.ImageUrl" class="img-fluid rounded-start p-0" alt="category image">
+                </div>
+                <div class="col-md-8 p-0">
+                    <div class="card-body">
+                        <h5 class="card-title fs-4 fw-bold">@blog.Name</h5>
+                        <p class="card-text fs-5">@blog.Description</p>
+                        <a href="/blog/@blog.Id" class="card-text btn btn-primary" role="button">View Blog</a>
+                    </div>
+                </div>
+            </div>
+        </li>
+    }
+</ul>
+
+<MailListSignUpComponent />
 
 @code {
+    [Parameter]
+    public int Id { get; set; }
 
+    private List<BlogModel>? blogs;
+
+    private string categoryName { get; set; } = string.Empty;
+
+    protected override void OnInitialized()
+    {
+        if(Id == 1)
+        {
+            blogs = Client.GetAllBlogs();
+            categoryName = "Blogs";
+        }
+        else
+        {
+            blogs = Client.GetBlogsBySlug(Id);
+
+            CategoryModel? category = CategoriesClient.GetCategoryById(Id);
+            if(category != null)
+            {
+                categoryName = category.Name;
+            }
+        }        
+    }
 }

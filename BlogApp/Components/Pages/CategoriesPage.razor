@@ -1,7 +1,38 @@
 ﻿@page "/categories"
 
-<h3>Categories</h3>
+@inject CategoriesClient Client
+
+<PageTitle>Home</PageTitle>
+
+<PageHero PageHeading="Categories" />
+
+<ul class="w-100 my-5  list-unstyled">    
+    @foreach (CategoryModel category in categories!)
+    {
+        <li class="card mb-5 w-100 p-0">
+                <div class="row g-0">
+                        <div class="col-md-4 p-0">
+                        <img src="@category.ImageUrl" class="img-fluid rounded-start p-0" alt="category image">
+                        </div>
+                        <div class="col-md-8 p-0">
+                            <div class="card-body">
+                                <h5 class="card-title fs-4 fw-bold">@category.Name</h5>
+                                <p class="card-text fs-5">@category.Description</p>
+                                <a href="/blogs/@category.Id" class="card-text btn btn-primary" role="button">View Blogs</a>
+                            </div>
+                        </div>
+                    </div>
+         </li>
+    }
+</ul>
+
+<MailListSignUpComponent />
 
 @code {
+    private List<CategoryModel>? categories;
 
+    protected override void OnInitialized()
+    {
+        categories = Client.GetCategories();
+    }
 }

@@ -1,0 +1,33 @@
+﻿@inject CategoriesClient Client
+
+<section class="text-center card py-4 px-1 my-5 bg-secondary bg-opacity-10">
+    <h3 class="pb-4">Categories</h3>
+
+    <ul class="list-unstyled d-flex flex-wrap align-content-center gap-4 justify-content-center">
+        @foreach(CategoryModel category in categories!)
+        {
+            <li class="card flex-grow-1">
+                <img src="@category.ImageUrl" class="card-img category_img" alt="categories image">
+                <div class="card-img-overlay text-center d-flex flex-column justify-content-center align-content-center">
+                    <h5 class="card-title py-3 fs-5 bg-light rounded">@category.Name</h5>
+                    <div class="w-50 mx-auto">
+                        <a href="/category/@category.Id" role="button" class="btn btn-primary fs-6">View</a>
+                    </div>                    
+                </div>            
+           </li>
+        }
+    </ul>
+
+    <a href="/categories" role="button" class="btn btn-primary w-25 mx-auto my-4">View All Categories</a>
+
+</section>
+
+
+@code {
+    private List<CategoryModel>? categories;
+
+    protected override void OnInitialized()
+    {
+        categories = Client.GetCategories();
+    }
+}

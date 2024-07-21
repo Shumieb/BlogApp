@@ -1,0 +1,26 @@
+﻿
+<section class="card p-4 my-5 text-center bg-secondary bg-opacity-10">
+    <h3 class="pb-2">Sign Up for the Mailing List</h3>
+    <p class="fs-5 p-0">Want to be the first to get all the latest blogs? Sign up below.</p>
+
+    <EditForm Model="@SignUpEmail" FormName="signUpForm" OnValidSubmit="handleSubmit" class="mb-3 w-50 px-4 mx-auto">
+        <div class="input-group">
+            <span class="input-group-text bg-primary text-white fs-5" id="basic-addon1">Email </span>
+            <InputText @bind-Value="SignUpEmail.Name" class="form-control fs-5" placeholder="email" aria-label="Email address" aria-describedby="basic-addon1" />
+        </div>        
+        <div class="py-2 mt-4">
+            <button class="btn btn-primary w-50 mx-auto" type="submit">Sign Up</button>
+        </div>        
+    </EditForm>
+</section>
+
+
+@code {
+    [SupplyParameterFromForm]
+    private SignUpDetails SignUpEmail { get; set; } = new() {Name=string.Empty };
+
+    private void handleSubmit()
+    {
+        Console.WriteLine("TODO");
+    }
+}

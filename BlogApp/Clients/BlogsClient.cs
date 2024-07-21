@@ -18,7 +18,7 @@ namespace BlogApp.Clients
                     CategoryId = 1,
                     Author="Author One",
                     IsFeatured=true,
-                    IsLatest=false
+                    ImageUrl= "https://placehold.co/600x400"
                 },
                 new BlogModel()
                 {
@@ -29,7 +29,7 @@ namespace BlogApp.Clients
                     CategoryId = 1,
                     Author = "Author Two",
                     IsFeatured = false,
-                    IsLatest = true
+                    ImageUrl = "https://placehold.co/600x400"
                 },
                 new BlogModel()
                 {
@@ -40,7 +40,7 @@ namespace BlogApp.Clients
                     CategoryId = 1,
                     Author = "Author Three",
                     IsFeatured = true,
-                    IsLatest = true
+                    ImageUrl = "https://placehold.co/600x400"
                 },
                 new BlogModel()
                 {
@@ -51,7 +51,7 @@ namespace BlogApp.Clients
                     CategoryId = 4,
                     Author = "Author Two",
                     IsFeatured = true,
-                    IsLatest = false
+                    ImageUrl = "https://placehold.co/600x400"
                 },
                 new BlogModel()
                 {
@@ -62,7 +62,7 @@ namespace BlogApp.Clients
                     CategoryId = 3,
                     Author = "Author One",
                     IsFeatured = true,
-                    IsLatest = false
+                    ImageUrl = "https://placehold.co/600x400"
                 },
                 new BlogModel()
                 {
@@ -73,17 +73,56 @@ namespace BlogApp.Clients
                     CategoryId = 2,
                     Author = "Author Two",
                     IsFeatured = false,
-                    IsLatest = true
+                    ImageUrl = "https://placehold.co/600x400"
+                },
+                new BlogModel()
+                {
+                    Id = 7,
+                    Name = "Blog Seven",
+                    Description = "This is the description for blog seven.",
+                    BlogBody = "This is the blog body for blog seven.",
+                    CategoryId = 7,
+                    Author = "Author Two",
+                    IsFeatured = false,
+                    ImageUrl = "https://placehold.co/600x400"
+                },
+                new BlogModel()
+                {
+                    Id = 8,
+                    Name = "Blog Eight",
+                    Description = "This is the description for blog eight.",
+                    BlogBody = "This is the blog body for blog eight.",
+                    CategoryId = 7,
+                    Author = "Author Two",
+                    IsFeatured = false,
+                    ImageUrl = "https://placehold.co/600x400"
+                },
+                new BlogModel()
+                {
+                    Id = 9,
+                    Name = "Blog Nine",
+                    Description = "This is the description for blog nine.",
+                    BlogBody = "This is the blog body for blog nine.",
+                    CategoryId = 6,
+                    Author = "Author Two",
+                    IsFeatured = false,
+                    ImageUrl = "https://placehold.co/600x400"
                 },
             ];
         }
 
-        public List<BlogModel> GetBlogs()
-        {
+        public List<BlogModel> GetAllBlogs() 
+        { 
             return blogs;
         }
 
-        public List<BlogModel> GetFeaturedBlogs() { 
+        public List<BlogModel> GetBlogsBySlug(int Id)
+        {
+            return [.. blogs.FindAll(blog => blog.CategoryId == Id)];
+        }
+
+        public List<BlogModel> GetFeaturedBlogs() 
+        { 
             return [.. blogs.FindAll(blog=>blog.IsFeatured)];
         }
     }

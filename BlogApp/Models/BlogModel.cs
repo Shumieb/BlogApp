@@ -9,6 +9,6 @@
         public int CategoryId { get; set; }
         public required string Author { get; set; }
         public bool IsFeatured { get; set; } = false;
-        public bool IsLatest { get; set; }
+        public string? ImageUrl { get; set; }
     }
 }

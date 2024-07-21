@@ -1,0 +1,14 @@
+﻿ li{
+    height: 240px;
+    min-width: 280px;
+    max-width: 280px;
+}
+
+.category_img{
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 250px;
+    min-width: 280px;
+    opacity: 0.70;
+}
