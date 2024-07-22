@@ -1,18 +1,38 @@
 ﻿@page "/category/{Id:int}"
 
-<PageTitle>Category - </PageTitle>
+@inject CategoriesClient Client
 
-<PageHero PageHeading="Category" />
+<PageTitle>Category - @categoryName</PageTitle>
 
-<h3>Category</h3>
+<main style="min-height: 80vh;">
 
+<PageHero PageHeading="@categoryName" />
 
+<section class="card my-5 p-4" style="min-height: 30vh;">
+    <h3 class=" p-2 text-decoration-underline">Description</h3>
+    <p class="p-2 lh-1 fs-5">@categoryDescription</p>
+</section>
 
-
-
-<MailListSignUpComponent />
+</main>
 
 @code {
     [Parameter]
-    public int? Id {get;set;}
+    public int Id {get;set;}
+
+    private string? categoryDescription { get; set; }
+    private string categoryName { get; set; } = "Category";
+
+    protected override void OnInitialized()
+    {
+        CategoryModel? category = Client.GetCategoryById(Id);
+
+        if(category != null)
+        {
+            categoryDescription = category.Description;
+            categoryName = category.Name;
+        }
+    }
+
+
+
 }
