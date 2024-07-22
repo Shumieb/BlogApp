@@ -1,8 +1,42 @@
 ﻿@page "/dashboard"
 
+<section class="my-5">
+    <div class="row mx-auto gap-2 vw-100">
+        <div class="col-md-4 p-0">
+            <img src="https://placehold.co/600x400" class="img-fluid rounded p-0" alt="category image">
+        </div>
+        <div class="col-md-6 card p-2 position-relative">
+                <h4 class="text-center mb-0">Name: </h4>
+                <p class="text-center p-0 m-0"><em>Role:</em></p>
+                <p class="text-center p-0 m-0"><em>Joined: </em></p>
+                <p class="card-text fs-5 p-2 mt-1">User summary</p>
+                <div class="position-absolute bottom-0 w-100 p-2">
+                    <div class="d-flex justify-content-end px-3">
+                        <a href="updateProfile/1" class="btn btn-primary" role="button">Update Profile</a>
+                    </div>                    
+                </div>
+        </div>
+    </div>
+</section>
 
+<section>
+    <h3>Published Blogs</h3>
+    <div>
+        <ul class="list-unstyled">
+            <li class="card">
+                <div>
+                    <p>Blog Name: </p>
+                    <p>Published: </p>
+                </div>
+                <div>
+                    <button>View</button>
+                    <button>Edit</button>
+                </div>                
+            </li>
+        </ul>
+    </div>
+</section>
 
-<h3>DashboardPage</h3>
 
 @code {
 
