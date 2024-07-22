@@ -6,9 +6,7 @@
 
 .category_img{
     background-position: center;
-    background-size: cover;
+    background-size: auto;
     background-repeat: no-repeat;
-    min-height: 250px;
-    min-width: 280px;
-    opacity: 0.70;
+    height: 100vh;
 }

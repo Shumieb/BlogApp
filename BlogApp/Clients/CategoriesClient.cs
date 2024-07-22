@@ -69,6 +69,6 @@ namespace BlogApp.Clients
         public CategoryModel? GetCategoryById(int Id)
         {
             return categories.FirstOrDefault(category => category.Id == Id);
-        }
+        }       
     }
 }

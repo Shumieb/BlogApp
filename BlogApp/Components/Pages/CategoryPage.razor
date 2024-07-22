@@ -1,38 +1,74 @@
 ﻿@page "/category/{Id:int}"
 
 @inject CategoriesClient Client
+@inject BlogsClient blogsClient
 
 <PageTitle>Category - @categoryName</PageTitle>
 
 <main style="min-height: 80vh;">
 
-<PageHero PageHeading="@categoryName" />
+<PageHero PageHeading="@categoryName" PageImg="@categoryImg" />
 
-<section class="card my-5 p-4" style="min-height: 30vh;">
+<section class="my-5 py-4" style="min-height: 30vh;">
     <h3 class=" p-2 text-decoration-underline">Description</h3>
     <p class="p-2 lh-1 fs-5">@categoryDescription</p>
 </section>
 
+<section>
+    <h3 class=" p-2 text-decoration-underline">Blogs</h3>
+    <ul class="list-unstyled">
+            @foreach (BlogModel blog in categoryBlogs!)
+            {
+                <li class="card mb-5 w-100 p-0">
+                    <div class="row g-0">
+                        <div class="col-md-4 p-0">
+                            <img src="@blog.ImageUrl" class="img-fluid rounded-start p-0" alt="category image">
+                        </div>
+                        <div class="col-md-8 p-0">
+                            <div class="card-body">
+                                <h5 class="card-title fs-4 fw-bold">@blog.Name</h5>
+                                <p class="card-text fs-5">@blog.Description</p>
+                                <a href="/blog/@blog.Id" class="card-text btn btn-primary" role="button">View Blogs</a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            }
+    </ul>       
+    </section>
+
+    <MailListSignUpComponent />
 </main>
 
 @code {
     [Parameter]
     public int Id {get;set;}
 
+    private List<BlogModel>? categoryBlogs { get; set; }
+
     private string? categoryDescription { get; set; }
     private string categoryName { get; set; } = "Category";
+    private string? categoryImg { get; set; } = "https://placehold.co/600x400";
 
     protected override void OnInitialized()
-    {
+    {       
+
         CategoryModel? category = Client.GetCategoryById(Id);
 
         if(category != null)
         {
             categoryDescription = category.Description;
             categoryName = category.Name;
+            categoryImg = category.ImageUrl;
+        }        
+
+        if (Id == 1)
+        {
+            categoryBlogs = blogsClient.GetAllBlogs();
+        }
+        else
+        {
+            categoryBlogs = blogsClient.GetBlogsByCategory(Id);
         }
     }
-
-
-
 }

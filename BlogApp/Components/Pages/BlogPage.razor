@@ -1,17 +1,58 @@
 ﻿@page "/blog/{Id:int}"
 
-<PageTitle>Blog - </PageTitle>
+@inject BlogsClient Client
+@rendermode InteractiveServer
 
-<PageHero PageHeading="Blog" />
+<PageTitle>Blog </PageTitle>
 
-<h3>Blog</h3>
+<section class="card my-5">
+        <div class="row g-0">
+            <div class="col-md-4 p-0">
+                <img src="@currentBlog!.ImageUrl" class="img-fluid rounded-start p-0" alt="category image">
+            </div>
+            <div class="col-md-8 p-0">
+                <div class="card-body d-flex flex-column justify-content-between align-baseline h-100">
+                    <div class="p-1">
+                        <h5 class="card-title mb-2 fs-4 d-flex justify-content-between align-content-center">
+                        <span class=" fw-bold text-decoration-underline">@currentBlog!.Name</span>
+                        @if (currentBlog.IsFeatured)
+                        {
+                            <span class="badge bg-primary text-white">Featured</span>
+                        }                        
+                    </h5>
+                        <p class="card-text fs-5">@currentBlog!.Description</p>
+                    </div>   
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex gap-4 align-content-center p-1">
+                            <p class="lh-sm fs-6"><strong>Author:</strong> @currentBlog.Author</p>
+                            <p class="lh-sm fs-6"><strong>Published:</strong> @currentBlog.PublishedDate </p>
+                        </div>
+                        <div class="p-1 d-flex justify-content-between align-items-baseline gap-2">
+                            <button 
+                                class="btn btn-outline-primary fs-6" 
+                                role="button" 
+                                @onclick="() => Client.UpdateLikes(Id)"><i class="bi bi-hand-thumbs-up-fill"></i></button>
+                            <p class="fs-6">@currentBlog.Likes Likes</p>
+                        </div>
+                    </div>                    
+                </div>
+            </div>
+        </div>
+</section>
 
+<section class="card p-2 mb-4" style="min-height: 40vh;">
+    <p class="card-body fs-5">@currentBlog.BlogBody</p>
+</section>
 
-
-
-<MailListSignUpComponent />
 
 @code {
     [Parameter]
-    public int? Id { get; set; }
+    public int Id { get; set; }
+
+    private BlogModel? currentBlog { get; set; }
+
+    protected override void OnInitialized()
+    {
+        currentBlog = Client.GetBlogbyId(Id);
+    }
 }

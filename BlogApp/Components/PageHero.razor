@@ -1,9 +1,15 @@
 ﻿
-<div class="p-5 text-center bg-secondary mt-5 rounded bg-opacity-10">
-    <h1 class="p-4">@PageHeading</h1>
-</div>
+<section class="card text-center my-5 text-bg-dark overflow-hidden d-flex justify-content-center align-content-center" style="height: 30vh;">
+    <img src="@PageImg" class="card-img hero_img" alt="page hero background picture">
+    <div class="card-img-overlay">
+        <h1 class="mt-5 bg-white w-25 mx-auto rounded p-2">@PageHeading</h1>
+    </div>
+</section>
 
 @code{
     [Parameter]
     public string? PageHeading {get; set;}
+
+    [Parameter]
+    public string PageImg { get; set; } = "https://placehold.co/600x400";
 }

@@ -14,11 +14,13 @@ namespace BlogApp.Clients
                     Id = 1,
                     Name = "Blog One",
                     Description = "This is the description for blog one.",
-                    BlogBody="This is the blog body for the blog body",
-                    CategoryId = 1,
-                    Author="Author One",
-                    IsFeatured=true,
-                    ImageUrl= "https://placehold.co/600x400"
+                    BlogBody = "This is the blog body for the blog body",
+                    CategoryId = 2,
+                    Author = "Author One",
+                    IsFeatured = true,
+                    PublishedDate = new DateOnly(2024, 07, 04),
+                    Likes = 450,
+                    ImageUrl= "https://images.pexels.com/photos/71104/utah-mountain-biking-bike-biking-71104.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                 },
                 new BlogModel()
                 {
@@ -26,10 +28,12 @@ namespace BlogApp.Clients
                     Name = "Blog Two",
                     Description = "This is the description for blog two.",
                     BlogBody = "This is the blog body for blog two",
-                    CategoryId = 1,
+                    CategoryId = 4,
                     Author = "Author Two",
                     IsFeatured = false,
-                    ImageUrl = "https://placehold.co/600x400"
+                    PublishedDate = new DateOnly(2024, 07, 04),
+                    Likes = 4500,
+                    ImageUrl = "https://images.pexels.com/photos/461593/pexels-photo-461593.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                 },
                 new BlogModel()
                 {
@@ -37,9 +41,11 @@ namespace BlogApp.Clients
                     Name = "Blog Three",
                     Description = "This is the description for blog three.",
                     BlogBody = "This is the blog body for blog three",
-                    CategoryId = 1,
+                    CategoryId = 2,
                     Author = "Author Three",
                     IsFeatured = true,
+                    PublishedDate = new DateOnly(2024, 07, 04),
+                    Likes = 480,
                     ImageUrl = "https://placehold.co/600x400"
                 },
                 new BlogModel()
@@ -51,7 +57,9 @@ namespace BlogApp.Clients
                     CategoryId = 4,
                     Author = "Author Two",
                     IsFeatured = true,
-                    ImageUrl = "https://placehold.co/600x400"
+                    PublishedDate = new DateOnly(2024, 07, 04),
+                    Likes = 1550,
+                    ImageUrl = "https://images.pexels.com/photos/47730/the-ball-stadion-football-the-pitch-47730.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                 },
                 new BlogModel()
                 {
@@ -62,7 +70,9 @@ namespace BlogApp.Clients
                     CategoryId = 3,
                     Author = "Author One",
                     IsFeatured = true,
-                    ImageUrl = "https://placehold.co/600x400"
+                    PublishedDate = new DateOnly(2024, 07, 04),
+                    Likes = 250,
+                    ImageUrl = "https://images.pexels.com/photos/2189696/pexels-photo-2189696.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                 },
                 new BlogModel()
                 {
@@ -73,7 +83,9 @@ namespace BlogApp.Clients
                     CategoryId = 2,
                     Author = "Author Two",
                     IsFeatured = false,
-                    ImageUrl = "https://placehold.co/600x400"
+                    PublishedDate = new DateOnly(2024, 07, 04),
+                    Likes = 4925,
+                    ImageUrl = "https://images.pexels.com/photos/1424239/pexels-photo-1424239.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                 },
                 new BlogModel()
                 {
@@ -84,7 +96,9 @@ namespace BlogApp.Clients
                     CategoryId = 7,
                     Author = "Author Two",
                     IsFeatured = false,
-                    ImageUrl = "https://placehold.co/600x400"
+                    PublishedDate = new DateOnly(2024, 07, 04),
+                    Likes = 875,
+                    ImageUrl = "https://images.pexels.com/photos/1424239/pexels-photo-1424239.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                 },
                 new BlogModel()
                 {
@@ -95,6 +109,8 @@ namespace BlogApp.Clients
                     CategoryId = 7,
                     Author = "Author Two",
                     IsFeatured = false,
+                    PublishedDate = new DateOnly(2024, 07, 04),
+                    Likes = 41250,
                     ImageUrl = "https://placehold.co/600x400"
                 },
                 new BlogModel()
@@ -106,7 +122,9 @@ namespace BlogApp.Clients
                     CategoryId = 6,
                     Author = "Author Two",
                     IsFeatured = false,
-                    ImageUrl = "https://placehold.co/600x400"
+                    PublishedDate = new DateOnly(2024, 07, 04),
+                    Likes = 8952,
+                    ImageUrl = "https://images.pexels.com/photos/1424239/pexels-photo-1424239.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                 },
             ];
         }
@@ -116,7 +134,12 @@ namespace BlogApp.Clients
             return blogs;
         }
 
-        public List<BlogModel> GetBlogsBySlug(int Id)
+        public BlogModel? GetBlogbyId(int id)
+        {
+            return blogs.FirstOrDefault(blog => blog.Id == id);
+        }
+
+        public List<BlogModel> GetBlogsByCategory(int Id)
         {
             return [.. blogs.FindAll(blog => blog.CategoryId == Id)];
         }
@@ -124,6 +147,16 @@ namespace BlogApp.Clients
         public List<BlogModel> GetFeaturedBlogs() 
         { 
             return [.. blogs.FindAll(blog=>blog.IsFeatured)];
+        }
+
+        public void UpdateLikes(int Id)
+        {
+            BlogModel? blog = GetBlogbyId(Id);
+
+            if (blog != null)
+            {
+                blog.Likes++;
+            }
         }
     }
 }

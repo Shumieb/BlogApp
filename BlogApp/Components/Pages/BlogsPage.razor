@@ -46,7 +46,7 @@
         }
         else
         {
-            blogs = Client.GetBlogsBySlug(Id);
+            blogs = Client.GetBlogsByCategory(Id);
 
             CategoryModel? category = CategoriesClient.GetCategoryById(Id);
             if(category != null)
